@@ -83,7 +83,9 @@ ALTER SEQUENCE public.galaxy_id_seq OWNED BY public.galaxy.galaxy_id;
 
 CREATE TABLE public.moon (
     moon_id integer NOT NULL,
-    name character varying(20) NOT NULL
+    name character varying(20) NOT NULL,
+    orbital_period numeric,
+    is_spherical boolean
 );
 
 
@@ -151,7 +153,10 @@ ALTER SEQUENCE public.nebula_nebula_id_seq OWNED BY public.nebula.nebula_id;
 
 CREATE TABLE public.planet (
     planet_id integer NOT NULL,
-    name character varying(20) NOT NULL
+    name character varying(20) NOT NULL,
+    orbital_period numeric,
+    in_habitable_zone boolean,
+    is_dwarf boolean
 );
 
 
@@ -258,6 +263,27 @@ ALTER TABLE ONLY public.star ALTER COLUMN star_id SET DEFAULT nextval('public.st
 -- Data for Name: moon; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.moon VALUES (1, 'Phobos', 0.32, false);
+INSERT INTO public.moon VALUES (2, 'Deimos', 1.26, false);
+INSERT INTO public.moon VALUES (3, 'Callisto', 16.69, true);
+INSERT INTO public.moon VALUES (4, 'Europa', 3.5, true);
+INSERT INTO public.moon VALUES (5, 'Ganymede', 7.16, true);
+INSERT INTO public.moon VALUES (6, 'Io', 1.8, true);
+INSERT INTO public.moon VALUES (7, 'Dione', 2.7, true);
+INSERT INTO public.moon VALUES (8, 'Enceladus', 1.37, true);
+INSERT INTO public.moon VALUES (10, 'Iapetus', 79.32, true);
+INSERT INTO public.moon VALUES (11, 'Mimas', 0.94, true);
+INSERT INTO public.moon VALUES (13, 'Rhea', 4.5, true);
+INSERT INTO public.moon VALUES (14, 'Tethys', 1.89, true);
+INSERT INTO public.moon VALUES (9, 'Hyperion', 21, false);
+INSERT INTO public.moon VALUES (12, 'Phoebe', 550.56, false);
+INSERT INTO public.moon VALUES (16, 'Ariel', 2.52, true);
+INSERT INTO public.moon VALUES (17, 'Oberon', 13.46, true);
+INSERT INTO public.moon VALUES (18, 'Titania', 8.71, true);
+INSERT INTO public.moon VALUES (19, 'Umbriel', 4.14, true);
+INSERT INTO public.moon VALUES (20, 'Triton', 5.88, true);
+INSERT INTO public.moon VALUES (21, 'Charon', 6.4, true);
+INSERT INTO public.moon VALUES (15, 'Titan', 16, true);
 
 
 --
@@ -270,6 +296,18 @@ ALTER TABLE ONLY public.star ALTER COLUMN star_id SET DEFAULT nextval('public.st
 -- Data for Name: planet; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.planet VALUES (1, 'Mercury', 88, false, false);
+INSERT INTO public.planet VALUES (2, 'Venus', 225, false, false);
+INSERT INTO public.planet VALUES (3, 'Earth', 365, true, false);
+INSERT INTO public.planet VALUES (4, 'Mars', 687, false, false);
+INSERT INTO public.planet VALUES (5, 'Jupiter', 4332.59, false, false);
+INSERT INTO public.planet VALUES (6, 'Saturn', 10759.22, false, false);
+INSERT INTO public.planet VALUES (7, 'Uranus', 30668.5, false, false);
+INSERT INTO public.planet VALUES (8, 'Neptune', 60195, false, false);
+INSERT INTO public.planet VALUES (9, 'Pluto', 90560, false, true);
+INSERT INTO public.planet VALUES (10, 'LHS 475 b', 2, false, false);
+INSERT INTO public.planet VALUES (11, 'Kepler-22b', 289.86, true, false);
+INSERT INTO public.planet VALUES (12, 'HD 85512 b', 54, true, false);
 
 
 --
@@ -289,7 +327,7 @@ SELECT pg_catalog.setval('public.galaxy_id_seq', 1, false);
 -- Name: moon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.moon_id_seq', 1, false);
+SELECT pg_catalog.setval('public.moon_id_seq', 21, true);
 
 
 --
@@ -303,7 +341,7 @@ SELECT pg_catalog.setval('public.nebula_nebula_id_seq', 1, false);
 -- Name: planet_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.planet_id_seq', 1, false);
+SELECT pg_catalog.setval('public.planet_id_seq', 12, true);
 
 
 --
