@@ -49,7 +49,11 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public.galaxy (
     galaxy_id integer NOT NULL,
-    name character varying(20) NOT NULL
+    name character varying(20) NOT NULL,
+    distance_in_kpc numeric,
+    location text,
+    size_in_kpc integer,
+    type text
 );
 
 
@@ -84,8 +88,9 @@ ALTER SEQUENCE public.galaxy_id_seq OWNED BY public.galaxy.galaxy_id;
 CREATE TABLE public.moon (
     moon_id integer NOT NULL,
     name character varying(20) NOT NULL,
-    orbital_period numeric,
-    is_spherical boolean
+    orbital_period_in_days numeric,
+    is_spherical boolean,
+    discoverer text
 );
 
 
@@ -119,7 +124,9 @@ ALTER SEQUENCE public.moon_id_seq OWNED BY public.moon.moon_id;
 
 CREATE TABLE public.nebula (
     nebula_id integer NOT NULL,
-    name character varying(20) NOT NULL
+    name character varying(20) NOT NULL,
+    distance_in_kpc numeric,
+    location text
 );
 
 
@@ -190,7 +197,11 @@ ALTER SEQUENCE public.planet_id_seq OWNED BY public.planet.planet_id;
 
 CREATE TABLE public.star (
     star_id integer NOT NULL,
-    name character varying(20) NOT NULL
+    name character varying(20) NOT NULL,
+    distance_in_ly numeric,
+    location text,
+    multiple_star_system boolean,
+    number_of_companions integer
 );
 
 
@@ -257,39 +268,51 @@ ALTER TABLE ONLY public.star ALTER COLUMN star_id SET DEFAULT nextval('public.st
 -- Data for Name: galaxy; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.galaxy VALUES (6, 'Hoag''s Object', 187900, 'Serpens', 40, 'ring');
+INSERT INTO public.galaxy VALUES (2, 'Bode''s Galaxy', 3679.22, 'Ursa Major', 39, 'spiral');
+INSERT INTO public.galaxy VALUES (5, 'Condor Galaxy', 65000, 'Pavo', 160, 'spiral');
+INSERT INTO public.galaxy VALUES (4, 'Malin 1', 366000, 'Coma Berenices', 215, 'spiral');
+INSERT INTO public.galaxy VALUES (3, 'Black Eye Galaxy', 5300, 'Coma Berenices', 170, 'spiral');
+INSERT INTO public.galaxy VALUES (1, 'Andromeda Galaxy', 765, 'Andromeda', 47, 'spiral');
 
 
 --
 -- Data for Name: moon; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
-INSERT INTO public.moon VALUES (1, 'Phobos', 0.32, false);
-INSERT INTO public.moon VALUES (2, 'Deimos', 1.26, false);
-INSERT INTO public.moon VALUES (3, 'Callisto', 16.69, true);
-INSERT INTO public.moon VALUES (4, 'Europa', 3.5, true);
-INSERT INTO public.moon VALUES (5, 'Ganymede', 7.16, true);
-INSERT INTO public.moon VALUES (6, 'Io', 1.8, true);
-INSERT INTO public.moon VALUES (7, 'Dione', 2.7, true);
-INSERT INTO public.moon VALUES (8, 'Enceladus', 1.37, true);
-INSERT INTO public.moon VALUES (10, 'Iapetus', 79.32, true);
-INSERT INTO public.moon VALUES (11, 'Mimas', 0.94, true);
-INSERT INTO public.moon VALUES (13, 'Rhea', 4.5, true);
-INSERT INTO public.moon VALUES (14, 'Tethys', 1.89, true);
-INSERT INTO public.moon VALUES (9, 'Hyperion', 21, false);
-INSERT INTO public.moon VALUES (12, 'Phoebe', 550.56, false);
-INSERT INTO public.moon VALUES (16, 'Ariel', 2.52, true);
-INSERT INTO public.moon VALUES (17, 'Oberon', 13.46, true);
-INSERT INTO public.moon VALUES (18, 'Titania', 8.71, true);
-INSERT INTO public.moon VALUES (19, 'Umbriel', 4.14, true);
-INSERT INTO public.moon VALUES (20, 'Triton', 5.88, true);
-INSERT INTO public.moon VALUES (21, 'Charon', 6.4, true);
-INSERT INTO public.moon VALUES (15, 'Titan', 16, true);
+INSERT INTO public.moon VALUES (1, 'Phobos', 0.32, false, 'Asaph Hall');
+INSERT INTO public.moon VALUES (2, 'Deimos', 1.26, false, 'Asaph Hall');
+INSERT INTO public.moon VALUES (3, 'Callisto', 16.69, true, 'Galileo Galilei');
+INSERT INTO public.moon VALUES (4, 'Europa', 3.5, true, 'Galileo Galilei');
+INSERT INTO public.moon VALUES (5, 'Ganymede', 7.16, true, 'Galileo Galilei');
+INSERT INTO public.moon VALUES (6, 'Io', 1.8, true, 'Galileo Galilei');
+INSERT INTO public.moon VALUES (7, 'Dione', 2.7, true, 'Giovanni Cassini');
+INSERT INTO public.moon VALUES (8, 'Enceladus', 1.37, true, 'William Herschel');
+INSERT INTO public.moon VALUES (9, 'Hyperion', 21, false, 'William Lassell');
+INSERT INTO public.moon VALUES (10, 'Iapetus', 79.32, true, 'Giovanni Cassini');
+INSERT INTO public.moon VALUES (11, 'Mimas', 0.94, true, 'William Herschel');
+INSERT INTO public.moon VALUES (12, 'Phoebe', 550.56, false, 'William Pickering');
+INSERT INTO public.moon VALUES (13, 'Rhea', 4.5, true, 'Giovanni Cassini');
+INSERT INTO public.moon VALUES (14, 'Tethys', 1.89, true, 'Giovanni Cassini');
+INSERT INTO public.moon VALUES (15, 'Titan', 16, true, 'Christiaan Huygens');
+INSERT INTO public.moon VALUES (16, 'Ariel', 2.52, true, 'William Lassell');
+INSERT INTO public.moon VALUES (17, 'Oberon', 13.46, true, 'William Herschel');
+INSERT INTO public.moon VALUES (18, 'Titania', 8.71, true, 'William Herschel');
+INSERT INTO public.moon VALUES (19, 'Umbriel', 4.14, true, 'William Lassell');
+INSERT INTO public.moon VALUES (20, 'Triton', 5.88, true, 'William Lassell');
+INSERT INTO public.moon VALUES (21, 'Charon', 6.4, true, 'James Christy');
 
 
 --
 -- Data for Name: nebula; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.nebula VALUES (1, 'Eagle Nebula', 1.74, 'Serpens');
+INSERT INTO public.nebula VALUES (2, 'Omega Nebula', 1.67, 'Sagittarius');
+INSERT INTO public.nebula VALUES (3, 'Trifid Nebula', 1.26, 'Sagittarius');
+INSERT INTO public.nebula VALUES (4, 'Lagoon Nebula', 1.26, 'Sagittarius');
+INSERT INTO public.nebula VALUES (5, 'Crab Nebula', 2, 'Taurus');
+INSERT INTO public.nebula VALUES (6, 'Gum Nebula', 0.45, 'Vela');
 
 
 --
@@ -314,27 +337,33 @@ INSERT INTO public.planet VALUES (12, 'HD 85512 b', 54, true, false);
 -- Data for Name: star; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.star VALUES (1, 'Barnard''s Star', 5.96, 'Ophiuchus', false, NULL);
+INSERT INTO public.star VALUES (2, 'Ruchbah', 99.4, 'Cassiopeia', true, 1);
+INSERT INTO public.star VALUES (3, 'Revati', 170, 'Pisces', true, 3);
+INSERT INTO public.star VALUES (4, 'Peacock', 179, 'Pavo', true, 1);
+INSERT INTO public.star VALUES (5, 'Denebola', 35.9, 'Leo', false, NULL);
+INSERT INTO public.star VALUES (6, 'Wolf 359', 7.9, 'Leo', false, NULL);
 
 
 --
 -- Name: galaxy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.galaxy_id_seq', 1, false);
+SELECT pg_catalog.setval('public.galaxy_id_seq', 6, true);
 
 
 --
 -- Name: moon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.moon_id_seq', 21, true);
+SELECT pg_catalog.setval('public.moon_id_seq', 22, true);
 
 
 --
 -- Name: nebula_nebula_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.nebula_nebula_id_seq', 1, false);
+SELECT pg_catalog.setval('public.nebula_nebula_id_seq', 6, true);
 
 
 --
@@ -348,7 +377,7 @@ SELECT pg_catalog.setval('public.planet_id_seq', 12, true);
 -- Name: star_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.star_id_seq', 1, false);
+SELECT pg_catalog.setval('public.star_id_seq', 6, true);
 
 
 --
