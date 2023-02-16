@@ -90,7 +90,8 @@ CREATE TABLE public.moon (
     name character varying(20) NOT NULL,
     orbital_period_in_days numeric,
     is_spherical boolean,
-    discoverer text
+    discoverer text,
+    planet_id integer
 );
 
 
@@ -163,7 +164,8 @@ CREATE TABLE public.planet (
     name character varying(20) NOT NULL,
     orbital_period numeric,
     in_habitable_zone boolean,
-    is_dwarf boolean
+    is_dwarf boolean,
+    star_id integer
 );
 
 
@@ -201,7 +203,8 @@ CREATE TABLE public.star (
     distance_in_ly numeric,
     location text,
     multiple_star_system boolean,
-    number_of_companions integer
+    number_of_companions integer,
+    galaxy_id integer
 );
 
 
@@ -280,27 +283,27 @@ INSERT INTO public.galaxy VALUES (1, 'Andromeda Galaxy', 765, 'Andromeda', 47, '
 -- Data for Name: moon; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
-INSERT INTO public.moon VALUES (1, 'Phobos', 0.32, false, 'Asaph Hall');
-INSERT INTO public.moon VALUES (2, 'Deimos', 1.26, false, 'Asaph Hall');
-INSERT INTO public.moon VALUES (3, 'Callisto', 16.69, true, 'Galileo Galilei');
-INSERT INTO public.moon VALUES (4, 'Europa', 3.5, true, 'Galileo Galilei');
-INSERT INTO public.moon VALUES (5, 'Ganymede', 7.16, true, 'Galileo Galilei');
-INSERT INTO public.moon VALUES (6, 'Io', 1.8, true, 'Galileo Galilei');
-INSERT INTO public.moon VALUES (7, 'Dione', 2.7, true, 'Giovanni Cassini');
-INSERT INTO public.moon VALUES (8, 'Enceladus', 1.37, true, 'William Herschel');
-INSERT INTO public.moon VALUES (9, 'Hyperion', 21, false, 'William Lassell');
-INSERT INTO public.moon VALUES (10, 'Iapetus', 79.32, true, 'Giovanni Cassini');
-INSERT INTO public.moon VALUES (11, 'Mimas', 0.94, true, 'William Herschel');
-INSERT INTO public.moon VALUES (12, 'Phoebe', 550.56, false, 'William Pickering');
-INSERT INTO public.moon VALUES (13, 'Rhea', 4.5, true, 'Giovanni Cassini');
-INSERT INTO public.moon VALUES (14, 'Tethys', 1.89, true, 'Giovanni Cassini');
-INSERT INTO public.moon VALUES (15, 'Titan', 16, true, 'Christiaan Huygens');
-INSERT INTO public.moon VALUES (16, 'Ariel', 2.52, true, 'William Lassell');
-INSERT INTO public.moon VALUES (17, 'Oberon', 13.46, true, 'William Herschel');
-INSERT INTO public.moon VALUES (18, 'Titania', 8.71, true, 'William Herschel');
-INSERT INTO public.moon VALUES (19, 'Umbriel', 4.14, true, 'William Lassell');
-INSERT INTO public.moon VALUES (20, 'Triton', 5.88, true, 'William Lassell');
-INSERT INTO public.moon VALUES (21, 'Charon', 6.4, true, 'James Christy');
+INSERT INTO public.moon VALUES (1, 'Phobos', 0.32, false, 'Asaph Hall', NULL);
+INSERT INTO public.moon VALUES (2, 'Deimos', 1.26, false, 'Asaph Hall', NULL);
+INSERT INTO public.moon VALUES (3, 'Callisto', 16.69, true, 'Galileo Galilei', NULL);
+INSERT INTO public.moon VALUES (4, 'Europa', 3.5, true, 'Galileo Galilei', NULL);
+INSERT INTO public.moon VALUES (5, 'Ganymede', 7.16, true, 'Galileo Galilei', NULL);
+INSERT INTO public.moon VALUES (6, 'Io', 1.8, true, 'Galileo Galilei', NULL);
+INSERT INTO public.moon VALUES (7, 'Dione', 2.7, true, 'Giovanni Cassini', NULL);
+INSERT INTO public.moon VALUES (8, 'Enceladus', 1.37, true, 'William Herschel', NULL);
+INSERT INTO public.moon VALUES (9, 'Hyperion', 21, false, 'William Lassell', NULL);
+INSERT INTO public.moon VALUES (10, 'Iapetus', 79.32, true, 'Giovanni Cassini', NULL);
+INSERT INTO public.moon VALUES (11, 'Mimas', 0.94, true, 'William Herschel', NULL);
+INSERT INTO public.moon VALUES (12, 'Phoebe', 550.56, false, 'William Pickering', NULL);
+INSERT INTO public.moon VALUES (13, 'Rhea', 4.5, true, 'Giovanni Cassini', NULL);
+INSERT INTO public.moon VALUES (14, 'Tethys', 1.89, true, 'Giovanni Cassini', NULL);
+INSERT INTO public.moon VALUES (15, 'Titan', 16, true, 'Christiaan Huygens', NULL);
+INSERT INTO public.moon VALUES (16, 'Ariel', 2.52, true, 'William Lassell', NULL);
+INSERT INTO public.moon VALUES (17, 'Oberon', 13.46, true, 'William Herschel', NULL);
+INSERT INTO public.moon VALUES (18, 'Titania', 8.71, true, 'William Herschel', NULL);
+INSERT INTO public.moon VALUES (19, 'Umbriel', 4.14, true, 'William Lassell', NULL);
+INSERT INTO public.moon VALUES (20, 'Triton', 5.88, true, 'William Lassell', NULL);
+INSERT INTO public.moon VALUES (21, 'Charon', 6.4, true, 'James Christy', NULL);
 
 
 --
@@ -319,30 +322,30 @@ INSERT INTO public.nebula VALUES (6, 'Gum Nebula', 0.45, 'Vela');
 -- Data for Name: planet; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
-INSERT INTO public.planet VALUES (1, 'Mercury', 88, false, false);
-INSERT INTO public.planet VALUES (2, 'Venus', 225, false, false);
-INSERT INTO public.planet VALUES (3, 'Earth', 365, true, false);
-INSERT INTO public.planet VALUES (4, 'Mars', 687, false, false);
-INSERT INTO public.planet VALUES (5, 'Jupiter', 4332.59, false, false);
-INSERT INTO public.planet VALUES (6, 'Saturn', 10759.22, false, false);
-INSERT INTO public.planet VALUES (7, 'Uranus', 30668.5, false, false);
-INSERT INTO public.planet VALUES (8, 'Neptune', 60195, false, false);
-INSERT INTO public.planet VALUES (9, 'Pluto', 90560, false, true);
-INSERT INTO public.planet VALUES (10, 'LHS 475 b', 2, false, false);
-INSERT INTO public.planet VALUES (11, 'Kepler-22b', 289.86, true, false);
-INSERT INTO public.planet VALUES (12, 'HD 85512 b', 54, true, false);
+INSERT INTO public.planet VALUES (1, 'Mercury', 88, false, false, NULL);
+INSERT INTO public.planet VALUES (2, 'Venus', 225, false, false, NULL);
+INSERT INTO public.planet VALUES (3, 'Earth', 365, true, false, NULL);
+INSERT INTO public.planet VALUES (4, 'Mars', 687, false, false, NULL);
+INSERT INTO public.planet VALUES (5, 'Jupiter', 4332.59, false, false, NULL);
+INSERT INTO public.planet VALUES (6, 'Saturn', 10759.22, false, false, NULL);
+INSERT INTO public.planet VALUES (7, 'Uranus', 30668.5, false, false, NULL);
+INSERT INTO public.planet VALUES (8, 'Neptune', 60195, false, false, NULL);
+INSERT INTO public.planet VALUES (9, 'Pluto', 90560, false, true, NULL);
+INSERT INTO public.planet VALUES (10, 'LHS 475 b', 2, false, false, NULL);
+INSERT INTO public.planet VALUES (11, 'Kepler-22b', 289.86, true, false, NULL);
+INSERT INTO public.planet VALUES (12, 'HD 85512 b', 54, true, false, NULL);
 
 
 --
 -- Data for Name: star; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
-INSERT INTO public.star VALUES (1, 'Barnard''s Star', 5.96, 'Ophiuchus', false, NULL);
-INSERT INTO public.star VALUES (2, 'Ruchbah', 99.4, 'Cassiopeia', true, 1);
-INSERT INTO public.star VALUES (3, 'Revati', 170, 'Pisces', true, 3);
-INSERT INTO public.star VALUES (4, 'Peacock', 179, 'Pavo', true, 1);
-INSERT INTO public.star VALUES (5, 'Denebola', 35.9, 'Leo', false, NULL);
-INSERT INTO public.star VALUES (6, 'Wolf 359', 7.9, 'Leo', false, NULL);
+INSERT INTO public.star VALUES (1, 'Barnard''s Star', 5.96, 'Ophiuchus', false, NULL, NULL);
+INSERT INTO public.star VALUES (2, 'Ruchbah', 99.4, 'Cassiopeia', true, 1, NULL);
+INSERT INTO public.star VALUES (3, 'Revati', 170, 'Pisces', true, 3, NULL);
+INSERT INTO public.star VALUES (4, 'Peacock', 179, 'Pavo', true, 1, NULL);
+INSERT INTO public.star VALUES (5, 'Denebola', 35.9, 'Leo', false, NULL, NULL);
+INSERT INTO public.star VALUES (6, 'Wolf 359', 7.9, 'Leo', false, NULL, NULL);
 
 
 --
@@ -458,6 +461,30 @@ ALTER TABLE ONLY public.star
 
 ALTER TABLE ONLY public.star
     ADD CONSTRAINT star_pkey PRIMARY KEY (star_id);
+
+
+--
+-- Name: star galaxy_star_fk; Type: FK CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.star
+    ADD CONSTRAINT galaxy_star_fk FOREIGN KEY (galaxy_id) REFERENCES public.galaxy(galaxy_id);
+
+
+--
+-- Name: moon planet_moon_fk; Type: FK CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.moon
+    ADD CONSTRAINT planet_moon_fk FOREIGN KEY (planet_id) REFERENCES public.planet(planet_id);
+
+
+--
+-- Name: planet star_planet_fk; Type: FK CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.planet
+    ADD CONSTRAINT star_planet_fk FOREIGN KEY (star_id) REFERENCES public.star(star_id);
 
 
 --
